@@ -1,0 +1,43 @@
+/**
+ * checkbox.controller.css [dev. version 0.0.1]
+ *
+ * Copyright (c) 2013 Roman Lo and other contributors
+ * Released under the MIT license
+ * Date: 2013-11-04
+ * 
+ */
+
+.ui-check-head {
+	background: url(../images/icons_checkbox.png) no-repeat;
+	cursor: pointer;
+    width: 12px;
+    height: 12px;
+    display: block;
+    float: left;
+    line-height: 12px;
+    margin: 0px 0px;
+}
+
+.ui-check-head.ui-check-partial {
+	background-position: -5px -39px;
+}
+
+.ui-check-head.ui-check-partial:hover {
+	background-position: -5px -56px;
+}
+
+.ui-check-head.ui-check-all {
+	background-position: -5px -73px;
+}
+
+.ui-check-head.ui-check-all:hover {
+	background-position: -5px -90px;
+}
+
+.ui-check-head.ui-check-none {
+	background-position: -5px -5px;
+}
+
+.ui-check-head.ui-check-none:hover {
+	background-position: -5px -22px;
+}
