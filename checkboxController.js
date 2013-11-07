@@ -41,6 +41,8 @@ if (!jQuery) { throw new Error("Checkbox Controller requires jQuery") }
 		, strictCheckbox : true // true: all checkboxes are trodictional input checkboxes, false: checkboxex are base on a picture/icon and not an input element
 		, safeMode : true // using absolute length instead of counting (in case of improper trigger use out side)
 		, fastMode : true // fast mode enable to add extra attribute to checkbox header and checkboxes to identify the status (when fastMode turned on, safeMode will be auto turn on)
+		, delayTigger : true // true: delay trigger event to make page faster response
+		, delayTime : 50 // delay 50ms to trigger 'change' event after batching the checkboxes
 		, debug : false
 	}
 
@@ -134,21 +136,25 @@ if (!jQuery) { throw new Error("Checkbox Controller requires jQuery") }
 				if (that.options.debug) {
 					console.info('Batching end: '+that.times+' times avg. cost:' + (that.totalMs / that.times) + 'ms')
 				}
-			}).on('batch-change', function() {
+			}).bind('batch-change', function() {
 				if (that.options.strictCheckbox) {
 					if (that.options.safeMode) {
 						that.checkedAmount = !that.options.fastMode 
 							? that.$checkboxes.filter(':checked').length 
 							: $(that.options.checkboxes+"["+that.checkboxStatusAttr+"="+that.checkboxStatus.checked+"]").length
-					} 
-					//trigger change
-					//setTimeout(function(){
-						that.$checkboxes.trigger('change', true);
-					//}, 100)
+					} 			
 				} else {
 					throw new Error('the current version of CheckboxController is not support in-strictCheckbox')
 					return
-				}				 				
+				}	
+
+				//trigger change
+				if (that.options.delayTigger) {
+					setTimeout(function(){
+						that.$checkboxes.trigger('change', true);
+					}, that.options.delayTime)
+				}				
+
 				that.refreshControllerState()				
 			})
 		}
