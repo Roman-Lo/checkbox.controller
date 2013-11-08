@@ -73,49 +73,7 @@
 								<td class="tb-cell">-</td>
 								<td class="tb-cell">-</td>
 								<td class="tb-cell">-</td>
-							</tr>
-							<tr class="tb-row">
-								<td class="tb-cell"><input type="checkbox" name="item" class="ui-checkbox"></td>
-								<td class="tb-cell">-</td>
-								<td class="tb-cell">-</td>
-								<td class="tb-cell">-</td>
-							</tr>
-							<tr class="tb-row">
-								<td class="tb-cell"><input type="checkbox" name="item" class="ui-checkbox"></td>
-								<td class="tb-cell">-</td>
-								<td class="tb-cell">-</td>
-								<td class="tb-cell">-</td>
-							</tr>
-							<tr class="tb-row">
-								<td class="tb-cell"><input type="checkbox" name="item" class="ui-checkbox"></td>
-								<td class="tb-cell">-</td>
-								<td class="tb-cell">-</td>
-								<td class="tb-cell">-</td>
-							</tr>
-							<tr class="tb-row">
-								<td class="tb-cell"><input type="checkbox" name="item" class="ui-checkbox"></td>
-								<td class="tb-cell">-</td>
-								<td class="tb-cell">-</td>
-								<td class="tb-cell">-</td>
-							</tr>
-							<tr class="tb-row">
-								<td class="tb-cell"><input type="checkbox" name="item" class="ui-checkbox"></td>
-								<td class="tb-cell">-</td>
-								<td class="tb-cell">-</td>
-								<td class="tb-cell">-</td>
-							</tr>
-							<tr class="tb-row">
-								<td class="tb-cell"><input type="checkbox" name="item" class="ui-checkbox"></td>
-								<td class="tb-cell">-</td>
-								<td class="tb-cell">-</td>
-								<td class="tb-cell">-</td>
-							</tr>
-							<tr class="tb-row">
-								<td class="tb-cell"><input type="checkbox" name="item" class="ui-checkbox"></td>
-								<td class="tb-cell">-</td>
-								<td class="tb-cell">-</td>
-								<td class="tb-cell">-</td>
-							</tr>
+							</tr>							
 						</tbody>
 					</table>
 				</div>
@@ -130,6 +88,92 @@
 					});					
 				</script>
 			</div>
+			<div class="clear" />
+			
+			<div id="example2" class="place-holder example">
+				<div id="exp-2-title" class="example-title">Example 2</div>
+				<div id="exp-2-description" class="example-desc">
+					
+				</div>
+				<div class="example-content">
+					<table id="exp-2-tb" class="example-table">
+						<thead class="tb-head">
+							<tr class="tb-row">
+								<th class="tb-col-hd">
+									<span id="exp-2-chk-controller" class="ui-check-head"></span>
+								</th>
+								<th class="tb-col-hd">Meeting Topic</th>
+								<th class="tb-col-hd">Moderator</th>
+								<th class="tb-col-hd">Date</th>
+							</tr>
+						</thead>
+						<tbody class="tb-body">
+							<tr class="tb-row">
+								<td class="tb-cell"><span class="ui-check" check-status="checked"></span></td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+							</tr>
+							<tr class="tb-row">
+								<td class="tb-cell"><span class="ui-check" check-status="checked"></span></td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+							</tr>
+							<tr class="tb-row">
+								<td class="tb-cell"><span class="ui-check" check-status="checked"></span></td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+							</tr>
+							<tr class="tb-row">
+								<td class="tb-cell"><span class="ui-check" check-status="no-checked"></span></td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+							</tr>
+							<tr class="tb-row">
+								<td class="tb-cell"><span class="ui-check" check-status="checked"></span></td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+							</tr>
+							<tr class="tb-row">
+								<td class="tb-cell"><span class="ui-check" check-status="no-checked"></span></td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+							</tr>
+							<tr class="tb-row">
+								<td class="tb-cell"><span class="ui-check" check-status="checked"></span></td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+							</tr>
+							<tr class="tb-row">
+								<td class="tb-cell"><span class="ui-check" check-status="checked"></span></td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+								<td class="tb-cell">-</td>
+							</tr>							
+						</tbody>
+					</table>
+				</div>
+				<div class="example-code"></div>
+				<div class="example-foot"></div>
+				<script type="text/javascript">
+					$('#exp-2-chk-controller').checkboxController({
+						checkboxes : "#exp-2-tb .ui-check"
+						, strictCheckbox : false
+						, safeMode : true
+						, fastMode : false
+						, debug : true
+					});					
+				</script>
+			</div>
+
+
+
 		</div>
 	</div>
 </body>

@@ -1,5 +1,5 @@
 /**
- * CheckboxController.js [dev. version 0.0.1]
+ * CheckboxController.js [dev. version 1.0.0]
  *
  * Copyright (c) 2013 Roman Lo and other contributors
  * Released under the MIT license
@@ -13,9 +13,9 @@ if (!jQuery) { throw new Error("Checkbox Controller requires jQuery") }
 	var CheckboxController = function(element, options){
 		this.checkboxStatusAttr = "check-status"
 		this.checkboxStatus = {
-			checked : 'cc-checked'
-			, nonchecked : 'cc-no-checked'
-			, partialchecked : 'cc-partial-checked'
+			checked : 'checked'
+			, nonchecked : 'no-checked'
+			, partialchecked : 'partial-checked'
 		}
 		this.type = undefined
 		this.enabled = undefined
@@ -74,7 +74,6 @@ if (!jQuery) { throw new Error("Checkbox Controller requires jQuery") }
 		for (var i = this.$checkboxes.length - 1; i >= 0; i--) {
 			var chkBxItm = this.$checkboxes[i]
 			var $chkBxItm = $(chkBxItm)
-			
 			if (this.options.strictCheckbox) {
 				if (!$chkBxItm.is('input') || $chkBxItm.attr('type') != 'checkbox') continue
 				
@@ -85,10 +84,12 @@ if (!jQuery) { throw new Error("Checkbox Controller requires jQuery") }
 				this.checkedAmount += chkBxItm.checked ? 1 : 0
 
 			} else {
-				throw new Error('the current version of CheckboxController is not support in-strictCheckbox')
-				break;				
+				this.clearHeaderStates($chkBxItm)
+				var isChecked = $chkBxItm.attr(this.checkboxStatusAttr) == this.checkboxStatus.checked
+				$chkBxItm.data('checked', isChecked)
+					.addClass(isChecked ? this.options.styles.normalChecked : this.options.styles.normalNoneChecked)
+				this.checkedAmount += isChecked ? 1 : 0
 			}
-
 			this.totalAmount += 1
 		}
 
@@ -102,7 +103,7 @@ if (!jQuery) { throw new Error("Checkbox Controller requires jQuery") }
 			//register event	
 			var that = this
 			if (this.options.strictCheckbox) {
-				this.$checkboxes.on('change', function (ele, isBatching) {		
+				this.$checkboxes.on('change', function (ele, isBatching, isClicked) {		
 					var $this = $(ele.target)
 					if (!$this.is('input') || $this.attr('type') != 'checkbox') return
 					if (!isBatching) {
@@ -120,8 +121,20 @@ if (!jQuery) { throw new Error("Checkbox Controller requires jQuery") }
 					}
 				})
 			} else {
-				throw new Error('the current version of CheckboxController is not support in-strictCheckbox')
-				return
+				this.$checkboxes.on('click',function () {
+					var $this = $(this)
+						,isChecked = !$this.data('checked')
+					that.clearElementState($this)
+					$this.data('checked', isChecked)
+						.attr(that.checkboxStatusAttr, isChecked ? that.checkboxStatus.checked : that.checkboxStatus.nonchecked)
+						.addClass(isChecked ? that.options.styles.normalChecked : that.options.styles.normalNoneChecked)
+						.trigger('change', [false, true])
+				}).on('change', function (ele, isBatching, isClicked) {
+					if (isClicked) {
+						that.checkedAmount += $(this).data('checked') ? 1 : -1
+						that.refreshControllerState()
+					}
+				})
 			}
 			
 			this.$element.on('click', function() {				
@@ -144,9 +157,8 @@ if (!jQuery) { throw new Error("Checkbox Controller requires jQuery") }
 							: $(that.options.checkboxes+"["+that.checkboxStatusAttr+"="+that.checkboxStatus.checked+"]").length
 					} 			
 				} else {
-					throw new Error('the current version of CheckboxController is not support in-strictCheckbox')
-					return
-				}	
+					that.checkedAmount = $(that.options.checkboxes+"["+that.checkboxStatusAttr+"="+that.checkboxStatus.checked+"]").length
+				}
 
 				//trigger change
 				if (that.options.delayTigger) {
@@ -180,15 +192,17 @@ if (!jQuery) { throw new Error("Checkbox Controller requires jQuery") }
 				})
 			}			
 		} else {
-			throw new Error('the current version of CheckboxController is not support in-strictCheckbox')
-			return
+			this.clearElementState(this.$checkboxes)
+			this.$checkboxes.data('checked', checked)
+				.attr(this.checkboxStatusAttr, checked ? this.checkboxStatus.checked : this.checkboxStatus.nonchecked)
+				.addClass(checked ? this.options.styles.normalChecked : this.options.styles.normalNoneChecked)
 		}
 		
 		this.$element.trigger('batch-change')
 	}
 	
 	CheckboxController.prototype.refreshControllerState = function () {
-		this.clearStates()
+		this.clearHeaderStates()
 		this.$element.addClass((this.checkedAmount == this.totalAmount) 
 			? this.options.styles.allChecked 
 			: (this.checkedAmount == 0) 
@@ -204,10 +218,15 @@ if (!jQuery) { throw new Error("Checkbox Controller requires jQuery") }
 
 	}
 
-	CheckboxController.prototype.clearStates = function () {
+	CheckboxController.prototype.clearHeaderStates = function () {
 		this.$element.removeClass(this.options.styles.allChecked)
 			.removeClass(this.options.styles.partialChecked)
 			.removeClass(this.options.styles.noneChecked)
+	}
+
+	CheckboxController.prototype.clearElementState = function (ele) {
+		ele.removeClass(this.options.styles.normalChecked)
+			.removeClass(this.options.styles.normalNoneChecked)
 	}
 
 	CheckboxController.prototype.getDefaults = function () {
